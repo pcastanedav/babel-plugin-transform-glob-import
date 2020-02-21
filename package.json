@@ -5,8 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-template": "^6.26.0",
-    "glob": "^7.1.2",
-    "micromatch": "^3.1.0"
+    "glob": "^7.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
