@@ -49,10 +49,12 @@ function toObject(t, state, source) {
 }
 
 function toRequire({stringLiteral}, state, name) {
-  const {prefix = ""} = state.opts || {}
+  const {prefix = "./", prefixes = {}} = state.opts || {}
+  const specific = prefixes[extname(name)]
+  const file = `${specific == undefined ? prefix: specific}${name}`
   return requireTemplate({
     INTEROP: state.file.addHelper('interopRequireDefault'),
-    FILE: stringLiteral(`${prefix}${name}`)
+    FILE: stringLiteral(file)
   }).expression
 }
 
