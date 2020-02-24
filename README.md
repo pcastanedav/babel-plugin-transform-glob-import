@@ -2,10 +2,10 @@
 
 Import multiple files at once with globs
 
-A prefix can be passed through the babel options it will add the string to every matched file Ex:
+A set of prefixes can be passed through the options to target specific extensions Ex:
 
 ```json
-["babel-plugin-transform-glob-import", {"prefix": "url:"}]
+["babel-plugin-transform-glob-import", {"prefixes": {".png": "url:", ".jpg": "url:"}}]
 ```
 Works with Parcel Bundler v2
 
