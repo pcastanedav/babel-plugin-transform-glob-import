@@ -4,6 +4,10 @@ const template = require('babel-template')
 
 const requireTemplate = template('INTEROP(require(FILE)).default')
 
+function log(...args) {
+  console.log('LOG: ', JSON.stringify(args))
+}
+
 function getImportNames (specifiers) {
   const typeHandlers = {
     'ImportDefaultSpecifier': (imports, specifier) => imports.defaultName = specifier.local.name,
@@ -31,7 +35,7 @@ function findFiles(pattern, state) {
     })
     .reduce((acc, {directories, name, path}) => {
       let directory = acc
-      directories.forEach(name => directory = directory[name] = {})
+      directories.forEach(name => directory = directory[name] = (directory[name] || {}))
       directory[name] = path
       return acc
     },{})
@@ -68,7 +72,6 @@ module.exports = function ({types: t}) {
       ImportDeclaration(path, state) {
 
         const matches = findFiles(path.node.source.value, state) 
-
         if (!matches) return
         const {defaultName, destructured} = getImportNames(path.node.specifiers)
 
